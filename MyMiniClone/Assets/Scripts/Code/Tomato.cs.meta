@@ -1,9 +1,10 @@
 fileFormatVersion: 2
-guid: c9c56281a6ecd7440a18e7f4280dfb20
+guid: 55842920f89f9ef4e800eacb4dd78c5f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - TomatoPrefab: {fileID: 4393519769520186937, guid: 6df4763d8af79ae449da74f6f942cc9d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
