@@ -2,32 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class TomatoPickup : MonoBehaviour
 {
     public GameObject tomatoPrefab;
-    private GameObject pickedUpTomato;
+    private List<GameObject> pickedUpTomatoes = new List<GameObject>();
+    private TomatoField tomatoField;
+
+    private void Start()
+    {
+        tomatoField = FindObjectOfType<TomatoField>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Tomato"))
+        if (other.CompareTag("Tomato") && pickedUpTomatoes.Count < 3)
         {
             // Create a new tomato GameObject in front of the player
             Vector3 spawnPos = transform.position + transform.forward * 2f;
-            pickedUpTomato = Instantiate(tomatoPrefab, spawnPos, Quaternion.identity);
+            GameObject newTomato = Instantiate(tomatoPrefab, spawnPos, Quaternion.identity);
 
-            // Disable the tomato collider and renderer so it doesn't interfere with the player
+            // Add the new tomato to the list of picked up tomatoes and disable its collider and renderer
+            pickedUpTomatoes.Add(newTomato);
             other.GetComponent<Collider>().enabled = false;
             other.GetComponent<Renderer>().enabled = false;
+            
+            // Remove tomato from field
+            tomatoField.RemoveTomato(other.gameObject);
+
+            // Position the new tomato in the stack
+            newTomato.transform.position = transform.position + transform.forward * (0.5f + pickedUpTomatoes.Count * 0.1f);
+            newTomato.transform.rotation = transform.rotation;
         }
     }
 
     private void Update()
     {
-        // If the player has picked up the tomato, make it follow them
-        if (pickedUpTomato != null)
+        // Update the position of the stack of picked up tomatoes
+        for (int i = 0; i < pickedUpTomatoes.Count; i++)
         {
-            pickedUpTomato.transform.position = Vector3.Lerp(pickedUpTomato.transform.position, 
-                transform.position + transform.forward * 2f, Time.deltaTime * 10f);
+            pickedUpTomatoes[i].transform.position = transform.position + transform.forward * (0.5f + i * 0.1f);
+            pickedUpTomatoes[i].transform.rotation = transform.rotation;
         }
     }
 }

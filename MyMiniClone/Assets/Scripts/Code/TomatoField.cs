@@ -4,58 +4,38 @@ using UnityEngine;
 
 public class TomatoField : MonoBehaviour
 {
-    public GameObject tomatoPrefab;
-    public List<Transform> branches;
-    public int maxTomatoes = 3;
-    public float growthTime = 5f;
-    public Collider takeTomatoesTrigger;
-    public Transform playerTomatoesParent;
-    private Vector3 tomatoOffset = new Vector3(0, 0.1f, 0);
+    public List<GameObject> Branches; // List of branches where tomatoes can spawn
+    public GameObject TomatoPrefab; // Prefab of the tomato to spawn
 
-private List<GameObject> tomatoes = new List<GameObject>();
+    private List<GameObject> spawnedTomatoes = new List<GameObject>(); // List of spawned tomatoes
 
-private IEnumerator SpawnTomatoes()
-{
-    while (true)
+    public float spawnTime = 1;
+    public float repeatTime = 3;
+    private void Start()
     {
-        yield return new WaitForSeconds(growthTime);
+        InvokeRepeating("SpawnTomato", spawnTime, repeatTime); // Call SpawnTomato every 5 seconds
+    }
 
-        if (tomatoes.Count < maxTomatoes)
+    private void SpawnTomato()
+    {
+        if (spawnedTomatoes.Count < Branches.Count)
         {
-            int branchIndex = tomatoes.Count % branches.Count;
-            Transform branch = branches[branchIndex];
+            // Choose a random branch to spawn the tomato on
+            GameObject branch = Branches[Random.Range(0, Branches.Count)];
 
-            Vector3 spawnPos = branch.position + Vector3.up * 0.1f; // spawn tomato slightly above the branch
-            GameObject tomato = Instantiate(tomatoPrefab, spawnPos, Quaternion.identity, branch); // set parent to the corresponding branch
-            tomatoes.Add(tomato);
+            // Check if there is already a tomato spawned on the branch
+            if (!spawnedTomatoes.Exists(tomato => tomato != null && tomato.transform.parent == branch.transform))
+            {
+                // Spawn the tomato on the branch
+                GameObject tomato = Instantiate(TomatoPrefab, branch.transform.position, Quaternion.identity);
+                tomato.transform.parent = branch.transform;
+                spawnedTomatoes.Add(tomato);
+            }
         }
     }
-}
 
-private void Start()
-{
-    StartCoroutine(SpawnTomatoes());
-
-    // Make sure the takeTomatoesTrigger has a trigger collider
-    takeTomatoesTrigger.isTrigger = true;
-}
-
-private void OnTriggerEnter(Collider other)
-{
-    if (other.CompareTag("Player"))
+    public void RemoveTomato(GameObject tomato)
     {
-        Debug.Log("Player entered tomato field.");
+        spawnedTomatoes.Remove(tomato);
     }
-    else if (other == takeTomatoesTrigger)
-    {
-        // Take the top tomato from the list and add it to the player's stack
-        if (tomatoes.Count > 0)
-        {
-            GameObject tomato = tomatoes[tomatoes.Count - 1];
-            tomatoes.RemoveAt(tomatoes.Count - 1);
-            tomato.transform.SetParent(playerTomatoesParent);
-            tomato.transform.localPosition = tomatoOffset * (playerTomatoesParent.childCount - 1);
-        }
-    }
-}
 }
