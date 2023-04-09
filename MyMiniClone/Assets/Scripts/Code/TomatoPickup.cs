@@ -41,7 +41,7 @@ public class TomatoPickup : MonoBehaviour
         // Update the position of the stack of picked up tomatoes
         for (int i = 0; i < pickedUpTomatoes.Count; i++)
         {
-            pickedUpTomatoes[i].transform.position = transform.position + transform.forward * (0.5f + i * 0.1f);
+            pickedUpTomatoes[i].transform.position = transform.position + transform.forward * 2f + transform.up * 0.5f * i;
             pickedUpTomatoes[i].transform.rotation = transform.rotation;
         }
     }
