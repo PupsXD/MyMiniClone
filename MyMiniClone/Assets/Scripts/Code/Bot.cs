@@ -5,47 +5,57 @@ using UnityEngine.AI;
 
 public class Bot : MonoBehaviour
 {
-    public List<GameObject> points;
-    public GameObject checkout;
-    public GameObject finish;
+    public List<GameObject> destinationTriggers; // List of triggers for the bot to visit
+    public GameObject checkoutTrigger; // The checkout trigger
+    public GameObject finishTrigger; // The finish trigger
 
     private UnityEngine.AI.NavMeshAgent agent;
-
-    private int currentPointIndex = 0;
+    private int currentDestinationIndex = 0;
 
     private void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        GoToNextPoint();
+        GoToNextDestination();
     }
 
-    private void GoToNextPoint()
+    private void GoToNextDestination()
     {
-        if (currentPointIndex < points.Count)
+        if (currentDestinationIndex < destinationTriggers.Count)
         {
-            agent.SetDestination(points[currentPointIndex].transform.position);
+            agent.SetDestination(destinationTriggers[currentDestinationIndex].transform.position);
         }
-        else if (checkout != null)
+        else if (checkoutTrigger != null)
         {
-            agent.SetDestination(checkout.transform.position);
+            agent.SetDestination(checkoutTrigger.transform.position);
         }
-        else if (finish != null)
+        else if (finishTrigger != null)
         {
-            agent.SetDestination(finish.transform.position);
+            agent.SetDestination(finishTrigger.transform.position);
         }
         else
         {
             Destroy(gameObject);
         }
 
-        currentPointIndex++;
+        currentDestinationIndex++;
     }
 
-    private void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        // Check if the bot has reached its current destination
+        if (currentDestinationIndex > 0 && currentDestinationIndex - 1 < destinationTriggers.Count && other.gameObject == destinationTriggers[currentDestinationIndex - 1])
         {
-            GoToNextPoint();
+            GoToNextDestination();
+        }
+        // Check if the bot has reached the checkout trigger
+        else if (other.gameObject == checkoutTrigger)
+        {
+            agent.SetDestination(finishTrigger.transform.position);
+        }
+        // Check if the bot has reached the finish trigger
+        else if (other.gameObject == finishTrigger)
+        {
+            Destroy(gameObject);
         }
     }
 
