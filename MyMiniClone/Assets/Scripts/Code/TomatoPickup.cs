@@ -45,4 +45,13 @@ public class TomatoPickup : MonoBehaviour
             pickedUpTomatoes[i].transform.rotation = transform.rotation;
         }
     }
+    
+    public void ClearPickedUpTomatoes()
+    {
+        pickedUpTomatoes.Clear();
+    }
+    public List<GameObject> GetPickedUpTomatoes()
+    {
+        return pickedUpTomatoes;
+    }
 }
