@@ -7,7 +7,7 @@ public class TomatoField : MonoBehaviour
     public List<GameObject> Branches; // List of branches where tomatoes can spawn
     public GameObject TomatoPrefab; // Prefab of the tomato to spawn
 
-    private List<GameObject> spawnedTomatoes = new List<GameObject>(); // List of spawned tomatoes
+    public List<GameObject> spawnedTomatoes = new List<GameObject>(); // List of spawned tomatoes
 
     public float spawnTime = 1;
     public float repeatTime = 3;

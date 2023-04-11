@@ -7,7 +7,7 @@ public class Shop : MonoBehaviour
     public List<GameObject> shelves = new List<GameObject>();
 
     private TomatoPickup tomatoPickup;
-    private List<GameObject> usedShelves = new List<GameObject>();
+    public List<GameObject> usedShelves = new List<GameObject>();
 
     private void Start()
     {

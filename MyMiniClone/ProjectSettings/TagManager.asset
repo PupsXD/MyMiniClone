@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tomato
+  - Shelf
   layers:
   - Default
   - TransparentFX

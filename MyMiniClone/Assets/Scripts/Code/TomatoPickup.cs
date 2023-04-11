@@ -6,9 +6,10 @@ using UnityEngine;
 public class TomatoPickup : MonoBehaviour
 {
     public GameObject tomatoPrefab;
-    private List<GameObject> pickedUpTomatoes = new List<GameObject>();
+    public List<GameObject> pickedUpTomatoes = new List<GameObject>();
     private TomatoField tomatoField;
 
+    public int maxTomatoes = 3;
     private void Start()
     {
         tomatoField = FindObjectOfType<TomatoField>();
@@ -16,7 +17,7 @@ public class TomatoPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Tomato") && pickedUpTomatoes.Count < 3)
+        if (other.CompareTag("Tomato") && pickedUpTomatoes.Count < maxTomatoes)
         {
             // Create a new tomato GameObject in front of the player
             Vector3 spawnPos = transform.position + transform.forward * 2f;
