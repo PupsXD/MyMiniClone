@@ -1027,6 +1027,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tomatoPrefab: {fileID: 4393519769520186937, guid: 6df4763d8af79ae449da74f6f942cc9d, type: 3}
   pickedUpTomatoes: []
+  anim: {fileID: 552393231}
+  isHolding: 0
   maxTomatoes: 3
 --- !u!1 &1265500031
 GameObject:

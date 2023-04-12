@@ -20,5 +20,6 @@ public class MovementScript : MonoBehaviour
         
         this.anim.SetFloat("vertical", verticalAxis);
         this.anim.SetFloat("horizontal", horizontalAxis);
+        
     }
 }
