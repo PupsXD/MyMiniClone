@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 42917942}
   - component: {fileID: 42917941}
   - component: {fileID: 42917946}
+  - component: {fileID: 42917948}
   - component: {fileID: 42917947}
   m_Layer: 0
   m_Name: Bot
@@ -348,9 +349,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destinationTriggers:
-  - {fileID: 832265114}
-  checkoutTrigger: {fileID: 429639638}
+  - {fileID: 429639638}
+  checkoutTrigger: {fileID: 832265114}
   finishTrigger: {fileID: 1845368220}
+  botInventory: {fileID: 42917948}
 --- !u!195 &42917947
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -361,7 +363,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 5.79
+  m_Speed: 1.85
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -373,6 +375,21 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &42917948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42917940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868546955bc46f048a8bc99114990ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shop: {fileID: 429639645}
+  maxTomatoesToTake: 0
+  enoughTomatoes: 0
 --- !u!1 &149939375
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +514,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 289827974}
-  m_LocalRotation: {x: 0.32626072, y: 0.000000049363457, z: -0.00000001703766, w: 0.94527984}
+  m_LocalRotation: {x: 0.32626075, y: -0.000000007473041, z: 0.0000000025792999, w: 0.94527984}
   m_LocalPosition: {x: -5.74, y: 14.1, z: -13.509999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -542,8 +559,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 357.8653, y: 208.96329}
-  m_SizeDelta: {x: -715.7306, y: -417.9266}
+  m_AnchoredPosition: {x: 815.5557, y: 322.69244}
+  m_SizeDelta: {x: -1631.1113, y: -645.3849}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &328187973
 MonoBehaviour:
@@ -612,6 +629,7 @@ MonoBehaviour:
   - {fileID: 1962459577}
   - {fileID: 415314989}
   - {fileID: 1627828130}
+  tomatosInShop: 0
   usedShelves: []
 --- !u!1 &727461389 stripped
 GameObject:
@@ -1318,7 +1336,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634031425}
-  m_LocalRotation: {x: 0.32626072, y: 0.000000049363457, z: -0.00000001703766, w: 0.94527984}
+  m_LocalRotation: {x: 0.32626075, y: -0.000000007473041, z: 0.0000000025792999, w: 0.94527984}
   m_LocalPosition: {x: -5.74, y: 14.1, z: -13.509999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1618,6 +1636,10 @@ PrefabInstance:
     - target: {fileID: 1176556017070409285, guid: 4c41bba49e1dc834bbd9639db3e21e0e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1604353811189347788, guid: 4c41bba49e1dc834bbd9639db3e21e0e, type: 3}
+      propertyPath: m_TagString
+      value: Shop
       objectReference: {fileID: 0}
     - target: {fileID: 1604353811189347788, guid: 4c41bba49e1dc834bbd9639db3e21e0e, type: 3}
       propertyPath: m_NavMeshLayer

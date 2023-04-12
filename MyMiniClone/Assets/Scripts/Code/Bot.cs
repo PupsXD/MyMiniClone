@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class Bot : MonoBehaviour
 {
     public List<GameObject> destinationTriggers; // List of triggers for the bot to visit
     public GameObject checkoutTrigger; // The checkout trigger
     public GameObject finishTrigger; // The finish trigger
+    public BotInentory botInventory; // The BotInventory component
 
     private UnityEngine.AI.NavMeshAgent agent;
     private int currentDestinationIndex = 0;
@@ -45,7 +47,14 @@ public class Bot : MonoBehaviour
         // Check if the bot has reached its current destination
         if (currentDestinationIndex > 0 && currentDestinationIndex - 1 < destinationTriggers.Count && other.gameObject == destinationTriggers[currentDestinationIndex - 1])
         {
-            GoToNextDestination();
+            if (other.CompareTag("Shop"))
+            {
+                StartCoroutine(WaitForTomatoes());
+            }
+            else
+            {
+                GoToNextDestination();
+            }
         }
         // Check if the bot has reached the checkout trigger
         else if (other.gameObject == checkoutTrigger)
@@ -62,5 +71,11 @@ public class Bot : MonoBehaviour
     private void OnDestroy()
     {
         Debug.Log("Bot has been destroyed");
+    }
+
+    private IEnumerator WaitForTomatoes()
+    {
+        yield return new WaitUntil(() => botInventory.enoughTomatoes);
+        GoToNextDestination();
     }
 }

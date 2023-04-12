@@ -5,9 +5,10 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
     public List<GameObject> shelves = new List<GameObject>();
-
+    public int tomatosInShop;
     private TomatoPickup tomatoPickup;
     public List<GameObject> usedShelves = new List<GameObject>();
+    
 
     private void Start()
     {
@@ -39,6 +40,7 @@ public class Shop : MonoBehaviour
                 {
                     pickedUpTomatoes[i].transform.position = unusedShelf.transform.position;
                     pickedUpTomatoes[i].GetComponent<Renderer>().enabled = true;
+                    tomatosInShop += 1;
 
                     // Add the shelf to the list of used shelves
                     usedShelves.Add(unusedShelf);
@@ -52,6 +54,41 @@ public class Shop : MonoBehaviour
 
             // Clear the list of picked up tomatoes
             tomatoPickup.ClearPickedUpTomatoes();
+        }
+    }
+    
+    public List<GameObject> GetUnusedShelves()
+    {
+        List<GameObject> unusedShelves = new List<GameObject>();
+        foreach (GameObject shelf in shelves)
+        {
+            if (!usedShelves.Contains(shelf))
+            {
+                unusedShelves.Add(shelf);
+            }
+        }
+        return unusedShelves;
+    }
+
+
+    public void AddUsedShelf(GameObject shelf)
+    {
+        usedShelves.Remove(shelf);
+    }
+    
+    public void TakeTomatoes(int numTomatoes)
+    {
+        tomatosInShop -= numTomatoes;
+
+        // Remove used shelves based on the number of taken tomatoes
+        for (int i = 0; i < numTomatoes; i++)
+        {
+            if (usedShelves.Count > 0)
+            {
+                GameObject shelfToRemove = usedShelves[0];
+                usedShelves.RemoveAt(0);
+                shelfToRemove.SetActive(false);
+            }
         }
     }
 }
