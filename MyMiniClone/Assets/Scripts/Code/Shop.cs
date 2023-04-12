@@ -5,9 +5,10 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
     public List<GameObject> shelves = new List<GameObject>();
-
+    public int tomatosInShop;
     private TomatoPickup tomatoPickup;
     public List<GameObject> usedShelves = new List<GameObject>();
+    
 
     private void Start()
     {
@@ -20,7 +21,7 @@ public class Shop : MonoBehaviour
         {
             // Place each picked up tomato on an unused shelf
             List<GameObject> pickedUpTomatoes = tomatoPickup.GetPickedUpTomatoes();
-
+            
             for (int i = 0; i < pickedUpTomatoes.Count; i++)
             {
                 // Find an unused shelf
@@ -33,13 +34,16 @@ public class Shop : MonoBehaviour
                         break;
                     }
                 }
-
+            
                 // If there are unused shelves, place the tomato on an unused shelf
                 if (unusedShelf != null)
                 {
-                    pickedUpTomatoes[i].transform.position = unusedShelf.transform.position;
+                    // Assign the tomato as a child of the used shelf
+                    pickedUpTomatoes[i].transform.parent = unusedShelf.transform;
+                    pickedUpTomatoes[i].transform.localPosition = Vector3.zero;
                     pickedUpTomatoes[i].GetComponent<Renderer>().enabled = true;
-
+                    tomatosInShop += 1;
+            
                     // Add the shelf to the list of used shelves
                     usedShelves.Add(unusedShelf);
                 }
@@ -49,9 +53,53 @@ public class Shop : MonoBehaviour
                     pickedUpTomatoes[i].GetComponent<Collider>().enabled = false;
                 }
             }
-
+            
             // Clear the list of picked up tomatoes
             tomatoPickup.ClearPickedUpTomatoes();
+
+        }
+    }
+    
+    public List<GameObject> GetUnusedShelves()
+    {
+        List<GameObject> unusedShelves = new List<GameObject>();
+        foreach (GameObject shelf in shelves)
+        {
+            if (!usedShelves.Contains(shelf))
+            {
+                unusedShelves.Add(shelf);
+            }
+        }
+        return unusedShelves;
+    }
+
+
+    public void AddUsedShelf(GameObject shelf)
+    {
+        usedShelves.Remove(shelf);
+    }
+    
+    public void TakeTomatoes(int numTomatoes)
+    {
+        tomatosInShop -= numTomatoes;
+
+        // Remove used shelves based on the number of taken tomatoes
+        for (int i = 0; i < numTomatoes; i++)
+        {
+            if (usedShelves.Count > 0)
+            {
+                GameObject shelfToRemove = usedShelves[0];
+                usedShelves.RemoveAt(0);
+
+                // Remove the tomatoes from the shelf
+                foreach (Transform child in shelfToRemove.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+
+                // Reactivate the shelf so that the player can replace the taken tomatoes
+                shelfToRemove.SetActive(true);
+            }
         }
     }
 }
