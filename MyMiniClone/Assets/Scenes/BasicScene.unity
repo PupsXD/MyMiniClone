@@ -231,7 +231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5485661242834994384, guid: aa53d2205f6d76c4cbd46f0fbc98a568, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8325246841687512775, guid: aa53d2205f6d76c4cbd46f0fbc98a568, type: 3}
       propertyPath: m_RootOrder
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingMoney: 10
   currentMoney: 0
-  saveFileName: money.sav
+  saveFileName: m0ney.sav
 --- !u!114 &149939377
 MonoBehaviour:
   m_ObjectHideFlags: 0

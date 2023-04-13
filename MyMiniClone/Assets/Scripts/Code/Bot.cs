@@ -18,6 +18,11 @@ public class Bot : MonoBehaviour
 
     private UnityEngine.AI.NavMeshAgent agent;
     private int currentDestinationIndex = 0;
+    
+    //Price of a Tomato
+    public int tomatoPrice = 10;
+    
+    
 
     private void Start()
     {
@@ -81,6 +86,13 @@ public class Bot : MonoBehaviour
         // Check if the bot has reached the checkout trigger
         else if (other.gameObject == checkoutTrigger)
         {
+            // Give the player money for each tomato the bot has
+            int moneyToAdd = botInventory.currentTomatoesTaken * tomatoPrice;
+            FindObjectOfType<MoneyManager>().AddMoney(moneyToAdd);
+            FindObjectOfType<MoneyUI>().UpdateMoneyText();
+            Debug.Log("Trigger Entered");
+
+            // Set the bot's destination to the finish trigger
             agent.SetDestination(finishTrigger.transform.position);
         }
         // Check if the bot has reached the finish trigger
