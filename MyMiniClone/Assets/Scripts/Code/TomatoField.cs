@@ -13,7 +13,7 @@ public class TomatoField : MonoBehaviour
     public float repeatTime = 3;
     private void Start()
     {
-        InvokeRepeating("SpawnTomato", spawnTime, repeatTime); // Call SpawnTomato every 5 seconds
+        InvokeRepeating("SpawnTomato", spawnTime, repeatTime); // Call SpawnTomato every repeatTime seconds
     }
 
     private void SpawnTomato()
