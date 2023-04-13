@@ -18,6 +18,7 @@ public class BotInentory : MonoBehaviour
     private void Start()
     {
         maxTomatoesToTake = Random.Range(1, 6);
+        shop = FindObjectOfType<Shop>();
     }
 
     private void OnTriggerEnter(Collider other)

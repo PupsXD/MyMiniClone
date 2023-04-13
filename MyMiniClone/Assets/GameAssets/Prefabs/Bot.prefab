@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destinationTriggers:
-  - {fileID: 0}
+  - {fileID: 4045508480093036684, guid: aa53d2205f6d76c4cbd46f0fbc98a568, type: 3}
   checkoutTrigger: {fileID: 0}
   finishTrigger: {fileID: 0}
   botInventory: {fileID: 6226000660308908521}
