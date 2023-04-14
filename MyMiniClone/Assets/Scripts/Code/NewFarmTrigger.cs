@@ -11,6 +11,7 @@ public class NewFarmTrigger : MonoBehaviour
     public GameObject seller;
     public GameObject poor;
     public GameObject newFarm;
+    public GameObject placeHolder;
 
     
    
@@ -22,7 +23,7 @@ public class NewFarmTrigger : MonoBehaviour
             Debug.Log("Bebra");
             moneyManager.Purchase(farmPrice);
             newFarm.SetActive(true);
-            gameObject.SetActive(false);
+            placeHolder.SetActive(false);
         }
         else
         {

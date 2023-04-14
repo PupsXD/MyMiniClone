@@ -15,12 +15,12 @@ public class UITracking : MonoBehaviour
 
     void Update()
     {
-        Camera mainCamera = Camera.main;
-        if (mainCamera != null)
-        {
-            transform.rotation = Quaternion.LookRotation(transform.position - mainCamera.transform.position);
-        }
-        //transform.rotation = Quaternion.LookRotation(transform.position - gameCamera.transform.position);
+        // Camera mainCamera = Camera.main;
+        // if (mainCamera != null)
+        // {
+        //     transform.rotation = Quaternion.LookRotation(transform.position - mainCamera.transform.position);
+        // }
+        transform.rotation = Quaternion.LookRotation(transform.position - gameCamera.transform.position);
     }
 
 }
