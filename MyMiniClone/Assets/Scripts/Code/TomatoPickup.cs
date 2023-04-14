@@ -8,6 +8,9 @@ public class TomatoPickup : MonoBehaviour
     public GameObject tomatoPrefab;
     public List<GameObject> pickedUpTomatoes = new List<GameObject>();
     private TomatoField tomatoField;
+    public Animator anim;
+
+    public bool isHolding; 
 
     public int maxTomatoes = 3;
     private void Start()
@@ -34,6 +37,10 @@ public class TomatoPickup : MonoBehaviour
             // Position the new tomato in the stack
             newTomato.transform.position = transform.position + transform.forward * (0.5f + pickedUpTomatoes.Count * 0.1f);
             newTomato.transform.rotation = transform.rotation;
+            
+            //calling animation in MovementScript
+            isHolding = true;
+            this.anim.SetBool("holding", isHolding);
         }
     }
 
@@ -45,11 +52,20 @@ public class TomatoPickup : MonoBehaviour
             pickedUpTomatoes[i].transform.position = transform.position + transform.forward * 2f + transform.up * 0.5f * i;
             pickedUpTomatoes[i].transform.rotation = transform.rotation;
         }
+
+        if (pickedUpTomatoes.Count.Equals(0))
+        {
+            isHolding = false;
+            this.anim.SetBool("holding", isHolding);
+        }
+            
+
     }
     
     public void ClearPickedUpTomatoes()
     {
         pickedUpTomatoes.Clear();
+        
     }
     public List<GameObject> GetPickedUpTomatoes()
     {
