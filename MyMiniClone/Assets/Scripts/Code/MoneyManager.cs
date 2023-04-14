@@ -36,6 +36,13 @@ public class MoneyManager : MonoBehaviour
         currentMoney += amount;
         SaveMoney();
     }
+    
+    public void SubtractMoney(int amount)
+    {
+        currentMoney -= amount;
+        SaveMoney();
+    }
+    
     private void LoadMoney()
     {
         if (File.Exists(Application.persistentDataPath + "/" + saveFileName))
