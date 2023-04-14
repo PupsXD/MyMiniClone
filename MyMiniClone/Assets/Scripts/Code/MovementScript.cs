@@ -10,10 +10,14 @@ public class MovementScript : MonoBehaviour
 
     private Vector2 movementInput; // The movement input vector
 
+    public ParticleSystem dust;
+
     private void Update()
     {
         Vector3 movement = new Vector3(movementInput.x, 0.0f, movementInput.y); // Create a movement vector based on the input
         Vector3 newPosition = transform.position + movement * speed * Time.deltaTime; // Calculate the new position
+        
+        PlayDirt();
 
         transform.LookAt(transform.position + movement); // Rotate the player to face the movement direction
         transform.position = newPosition; // Move the player using the Transform component
@@ -25,5 +29,10 @@ public class MovementScript : MonoBehaviour
     private void OnMove(InputValue value)
     {
         movementInput = value.Get<Vector2>(); // Get the movement input vector from the Input System
+    }
+
+    private void PlayDirt()
+    {
+        dust.Play();
     }
 }
