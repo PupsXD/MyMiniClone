@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 
@@ -11,6 +12,11 @@ public class MoneyUI : MonoBehaviour
     {
         UpdateMoneyText();
         //uiMoney = moneyManager.currentMoney;
+    }
+
+    private void Update()
+    {
+        UpdateMoneyText();
     }
 
     public void UpdateMoneyText()
