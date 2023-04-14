@@ -37,7 +37,7 @@ public class MoneyManager : MonoBehaviour
         SaveMoney();
     }
     
-    public void SubtractMoney(int amount)
+    public void Purchase(int amount)
     {
         currentMoney -= amount;
         SaveMoney();
