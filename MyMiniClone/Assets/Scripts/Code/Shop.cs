@@ -16,13 +16,23 @@ public class Shop : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
+{
+    if (other.CompareTag("Player"))
     {
-        if (other.CompareTag("Player"))
+        // Place each picked up tomato on an unused shelf
+        List<GameObject> pickedUpTomatoes = tomatoPickup.GetPickedUpTomatoes();
+
+        int numTomatoesToPlace = Mathf.Min(pickedUpTomatoes.Count, GetUnusedShelves().Count);
+
+        for (int i = 0; i < numTomatoesToPlace; i++)
         {
-            // Place each picked up tomato on an unused shelf
-            List<GameObject> pickedUpTomatoes = tomatoPickup.GetPickedUpTomatoes();
-            
-            for (int i = 0; i < pickedUpTomatoes.Count; i++)
+            if (tomatosInShop >= shelves.Count)
+            {
+                // If the shop is already at maximum capacity, disable the tomato's collider so that it stays in the player's hands
+                pickedUpTomatoes[i].GetComponent<Collider>().enabled = false;
+                Debug.Log("Full");
+            }
+            else
             {
                 // Find an unused shelf
                 GameObject unusedShelf = null;
@@ -34,7 +44,7 @@ public class Shop : MonoBehaviour
                         break;
                     }
                 }
-            
+
                 // If there are unused shelves, place the tomato on an unused shelf
                 if (unusedShelf != null)
                 {
@@ -43,7 +53,7 @@ public class Shop : MonoBehaviour
                     pickedUpTomatoes[i].transform.localPosition = Vector3.zero;
                     pickedUpTomatoes[i].GetComponent<Renderer>().enabled = true;
                     tomatosInShop += 1;
-            
+
                     // Add the shelf to the list of used shelves
                     usedShelves.Add(unusedShelf);
                 }
@@ -51,15 +61,20 @@ public class Shop : MonoBehaviour
                 {
                     // If there are no unused shelves, disable the tomato's collider so that it stays in the player's hands
                     pickedUpTomatoes[i].GetComponent<Collider>().enabled = false;
+                    Debug.Log("Full");
                 }
             }
-            
-            // Clear the list of picked up tomatoes
-            tomatoPickup.ClearPickedUpTomatoes();
-
         }
+
+        // Remove the placed tomatoes from the pickedUpTomatoes list
+        pickedUpTomatoes.RemoveRange(0, numTomatoesToPlace);
+
+        // Clear the remaining picked up tomatoes
+        tomatoPickup.SetPickedUpTomatoes(pickedUpTomatoes);
     }
-    
+}
+
+
     public List<GameObject> GetUnusedShelves()
     {
         List<GameObject> unusedShelves = new List<GameObject>();

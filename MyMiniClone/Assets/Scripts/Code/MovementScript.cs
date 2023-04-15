@@ -7,23 +7,25 @@ public class MovementScript : MonoBehaviour
 {
     public float speed = 5.0f; // The movement speed of the player
     public Animator anim;
+    public ParticleSystem dust;
 
     private Vector2 movementInput; // The movement input vector
-
-    public ParticleSystem dust;
 
     private void Update()
     {
         Vector3 movement = new Vector3(movementInput.x, 0.0f, movementInput.y); // Create a movement vector based on the input
         Vector3 newPosition = transform.position + movement * speed * Time.deltaTime; // Calculate the new position
         
-        PlayDirt();
-
         transform.LookAt(transform.position + movement); // Rotate the player to face the movement direction
         transform.position = newPosition; // Move the player using the Transform component
         
         this.anim.SetFloat("vertical", movementInput.y);
         this.anim.SetFloat("horizontal", movementInput.x);
+
+        if (movement.magnitude > 0.1f)
+        {
+            PlayDirt();
+        }
     }
 
     private void OnMove(InputValue value)

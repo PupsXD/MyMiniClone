@@ -10,9 +10,10 @@ public class TomatoPickup : MonoBehaviour
     private TomatoField tomatoField;
     public Animator anim;
 
-    public bool isHolding; 
+    public bool isHolding;
 
     public int maxTomatoes = 3;
+
     private void Start()
     {
         tomatoField = FindObjectOfType<TomatoField>();
@@ -30,14 +31,14 @@ public class TomatoPickup : MonoBehaviour
             pickedUpTomatoes.Add(newTomato);
             other.GetComponent<Collider>().enabled = false;
             other.GetComponent<Renderer>().enabled = false;
-            
+
             // Remove tomato from field
             tomatoField.RemoveTomato(other.gameObject);
 
             // Position the new tomato in the stack
             newTomato.transform.position = transform.position + transform.forward * (0.5f + pickedUpTomatoes.Count * 0.1f);
             newTomato.transform.rotation = transform.rotation;
-            
+
             //calling animation in MovementScript
             isHolding = true;
             this.anim.SetBool("holding", isHolding);
@@ -58,15 +59,46 @@ public class TomatoPickup : MonoBehaviour
             isHolding = false;
             this.anim.SetBool("holding", isHolding);
         }
-            
-
     }
-    
+
     public void ClearPickedUpTomatoes()
     {
         pickedUpTomatoes.Clear();
-        
     }
+
+    public void RemovePickedUpTomato(GameObject tomato)
+    {
+        if (pickedUpTomatoes.Contains(tomato))
+        {
+            // Remove the tomato from the list of picked up tomatoes
+            pickedUpTomatoes.Remove(tomato);
+
+            // Enable the tomato's collider and renderer
+            tomato.GetComponent<Collider>().enabled = true;
+            tomato.GetComponent<Renderer>().enabled = true;
+
+            
+
+            // Update the position of the remaining tomatoes
+            for (int i = 0; i < pickedUpTomatoes.Count; i++)
+            {
+                pickedUpTomatoes[i].transform.position = transform.position + transform.forward * 2f + transform.up * 0.5f * i;
+                pickedUpTomatoes[i].transform.rotation = transform.rotation;
+            }
+        }
+
+        if (pickedUpTomatoes.Count.Equals(0))
+        {
+            isHolding = false;
+            this.anim.SetBool("holding", isHolding);
+        }
+    }
+    
+    public void SetPickedUpTomatoes(List<GameObject> tomatoes)
+    {
+        pickedUpTomatoes = tomatoes;
+    }
+
     public List<GameObject> GetPickedUpTomatoes()
     {
         return pickedUpTomatoes;
