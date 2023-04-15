@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Shop : MonoBehaviour
@@ -9,10 +11,16 @@ public class Shop : MonoBehaviour
     private TomatoPickup tomatoPickup;
     public List<GameObject> usedShelves = new List<GameObject>();
     
+    public TMP_Text tomatoAmount;
 
     private void Start()
     {
         tomatoPickup = FindObjectOfType<TomatoPickup>();
+    }
+
+    private void Update()
+    {
+        tomatoAmount.text = tomatosInShop.ToString();
     }
 
     private void OnTriggerEnter(Collider other)
