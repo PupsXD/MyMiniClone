@@ -7,6 +7,7 @@ TagManager:
   - Tomato
   - Shelf
   - Shop
+  - BotSystem
   layers:
   - Default
   - TransparentFX
