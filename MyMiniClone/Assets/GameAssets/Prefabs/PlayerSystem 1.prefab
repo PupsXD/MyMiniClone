@@ -62,7 +62,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2382573793933609115}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.01, z: 0}
+  m_LocalPosition: {x: 0, y: 1.01, z: -0.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -164,6 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10.36
   anim: {fileID: 8104807609345197333}
+  dust: {fileID: 0}
 --- !u!114 &2382573793933609105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,6 +182,7 @@ MonoBehaviour:
   anim: {fileID: 8104807609345197333}
   isHolding: 0
   maxTomatoes: 3
+  playerUI: {fileID: 0}
 --- !u!1001 &2382573792416757892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -202,7 +204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 848f58e64afec654a908b1efd3cf2678, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 848f58e64afec654a908b1efd3cf2678, type: 3}
       propertyPath: m_LocalRotation.w
