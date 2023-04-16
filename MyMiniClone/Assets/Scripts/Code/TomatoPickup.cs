@@ -24,7 +24,7 @@ public class TomatoPickup : MonoBehaviour
         if (other.CompareTag("Tomato") && pickedUpTomatoes.Count < maxTomatoes)
         {
             // Create a new tomato GameObject in front of the player
-            Vector3 spawnPos = transform.position + transform.forward * 2f;
+            Vector3 spawnPos = transform.position + transform.forward * 0.5f;
             GameObject newTomato = Instantiate(tomatoPrefab, spawnPos, Quaternion.identity);
 
             // Add the new tomato to the list of picked up tomatoes and disable its collider and renderer
@@ -50,7 +50,7 @@ public class TomatoPickup : MonoBehaviour
         // Update the position of the stack of picked up tomatoes
         for (int i = 0; i < pickedUpTomatoes.Count; i++)
         {
-            pickedUpTomatoes[i].transform.position = transform.position + transform.forward * 2f + transform.up * 0.5f * i;
+            pickedUpTomatoes[i].transform.position = transform.position + transform.forward * 0.5f + transform.up * 0.5f * i;
             pickedUpTomatoes[i].transform.rotation = transform.rotation;
         }
 
