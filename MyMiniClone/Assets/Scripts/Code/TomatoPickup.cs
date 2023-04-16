@@ -13,6 +13,8 @@ public class TomatoPickup : MonoBehaviour
     public bool isHolding;
 
     public int maxTomatoes = 3;
+    
+    public GameObject playerUI;
 
     private void Start()
     {
@@ -58,6 +60,15 @@ public class TomatoPickup : MonoBehaviour
         {
             isHolding = false;
             this.anim.SetBool("holding", isHolding);
+        }
+
+        if (pickedUpTomatoes.Count.Equals(maxTomatoes))
+        {
+            playerUI.SetActive(true);
+        }
+        else
+        {
+            playerUI.SetActive(false);
         }
     }
 
