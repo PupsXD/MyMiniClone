@@ -5,14 +5,41 @@ using UnityEngine;
 
 public class NewFarmTrigger : MonoBehaviour
 {
+    
+    [SerializeField] private MoneyManager moneyManager;
+    public int farmPrice = 100;
+    public GameObject seller;
+    public GameObject poor;
+    public GameObject newFarm;
+    public GameObject placeHolder;
+
+    
+   
+
+    public void PurchaseFarm()
+    {
+        if (moneyManager.currentMoney >= farmPrice)
+        {
+            Debug.Log("Bebra");
+            moneyManager.Purchase(farmPrice);
+            newFarm.SetActive(true);
+            placeHolder.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("Pupa");
+            poor.SetActive(true);
+        }
+    }
+
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Заплати денег");
+        seller.SetActive(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Пошел нахуй эшуалли");
+        seller.SetActive(false);
     }
 }

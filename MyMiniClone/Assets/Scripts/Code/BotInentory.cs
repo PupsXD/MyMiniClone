@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using TMPro;
+
 
 public class BotInentory : MonoBehaviour
 {
-    public Shop shop;
+    [SerializeField] Shop shop;
     public int maxTomatoesToTake;
     public int currentTomatoesTaken = 0;
     public bool enoughTomatoes = false;
@@ -18,10 +20,20 @@ public class BotInentory : MonoBehaviour
     public MoneyManager moneyManager; // Reference to the MoneyManager script
     public MoneyUI moneyUI;
 
+    public TMP_Text counter;
+    public GameObject checkmark;
+
     private void Start()
     {
         maxTomatoesToTake = Random.Range(1, 6);
+        counter.text = maxTomatoesToTake.ToString();
         shop = FindObjectOfType<Shop>();
+
+        // Make sure the Shop object was found
+        if (shop == null)
+        {
+            Debug.LogError("Could not find Shop object in the scene!");
+        }
         moneyManager = FindObjectOfType<MoneyManager>();
         moneyUI = FindObjectOfType<MoneyUI>();
     }
@@ -54,6 +66,8 @@ public class BotInentory : MonoBehaviour
         {
             take = true;
             this.botAnim.SetBool("isTaking", take);
+            counter.color = new Color(counter.color.r, counter.color.g, counter.color.b, 0);
+            checkmark.SetActive(true);
             if (take == true)
             {
                 take = false;
@@ -62,6 +76,7 @@ public class BotInentory : MonoBehaviour
             }
             
         }
+        
     }
 }
   
